@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Healthy eating for college students</title>
+  <title>Healthy Eating for College Students</title>
   <style>
     * {
       box-sizing: border-box;
@@ -71,6 +71,7 @@
       line-height: 1.2;
       margin-bottom: 18px;
       color: #1f2a1f;
+      text-transform: capitalize;
     }
 
     .hero p {
@@ -93,6 +94,7 @@
       border-radius: 999px;
       font-size: 0.95rem;
       transition: 0.25s ease;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -204,6 +206,9 @@
 
     .article-card {
       padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .article-card h3 {
@@ -211,9 +216,13 @@
       color: #1f2a1f;
     }
 
-    .article-card p {
+    .article-card .preview-text {
       color: #555;
       margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* 限制摘要只显示两行 */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .tag {
@@ -247,19 +256,83 @@
       font-size: 0.9rem;
     }
 
+    /* 弹窗 (Modal) 样式 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #999;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #222;
+    }
+
+    .modal-title {
+      margin-bottom: 20px;
+      color: #1f2a1f;
+      font-size: 1.8rem;
+      line-height: 1.3;
+    }
+
+    .modal-body p {
+      margin-bottom: 16px;
+      color: #444;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
     @media (max-width: 850px) {
       .hero,
       .about {
         grid-template-columns: 1fr;
       }
-
       .hero h1 {
         font-size: 2.3rem;
       }
-
       .nav {
         flex-direction: column;
         gap: 12px;
+      }
+      .modal-content {
+        padding: 30px 20px;
       }
     }
   </style>
@@ -269,10 +342,10 @@
     <div class="nav">
       <div class="logo">Healthy Campus Plate</div>
       <nav class="nav-links">
-        <a href=" ">首页</a >
-        <a href="#videos">采访视频</a >
-        <a href="#articles">我的稿子</a >
-        <a href="#about">关于主题</a >
+        <a href="#home">Home</a>
+        <a href="#videos">Videos</a>
+        <a href="#articles">Articles</a>
+        <a href="#about">About Project</a>
       </nav>
     </div>
   </header>
@@ -280,47 +353,45 @@
   <main>
     <section class="hero" id="home">
       <div>
-        <h1>heathy eating for college students</h1>
+        <h1>Healthy Eating for College Students</h1>
         <p>
-          这是一个关注大学生日常饮食习惯的网站。你可以在这里看到我整理的采访视频，
-          也可以阅读我写的文章，了解大学生在忙碌学习生活中如何更健康地吃饭。
-        </p >
+          This is a digital platform focused on the daily eating habits of university students. Here, you can watch the videos I've compiled, read my articles, and learn how to eat healthier and smarter amidst a busy campus life.
+        </p>
         <div class="hero-buttons">
-          <a href="#videos" class="btn btn-primary">查看采访视频</a >
-          <a href="#articles" class="btn btn-secondary">阅读我的稿子</a >
+          <a href="#videos" class="btn btn-primary">Watch Videos</a>
+          <a href="#articles" class="btn btn-secondary">Read Articles</a>
         </div>
       </div>
 
       <div class="hero-card">
-        <h3>网站内容</h3>
+        <h3>Site Overview</h3>
         <ul>
-          <li>采访不同学生的真实饮食习惯</li>
-          <li>分享健康饮食的小建议</li>
-          <li>展示我写的主题稿件和思考</li>
+          <li>Interviews exploring students' real eating habits.</li>
+          <li>Practical, budget-friendly healthy eating tips.</li>
+          <li>My deep dives into environmental nudges and nutrition.</li>
         </ul>
       </div>
     </section>
 
     <section id="videos">
       <div class="section-title">
-        <h2>采访视频</h2>
-        <p>下面可以放你采访同学、朋友或老师的视频。现在先用了示例视频位置，你之后只需要替换链接。</p >
+        <h2>My Videos</h2>
       </div>
 
       <div class="video-grid">
         <div class="video-card">
-          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="采访视频 1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Interview Video 1" allowfullscreen></iframe>
           <div class="card-content">
-            <h3>采访视频 1</h3>
-            <p>介绍一位大学生平时的早餐和晚餐习惯，以及他们对健康饮食的看法。</p >
+            <h3>Pre-College Interview</h3>
+            <p>Interviewing high school students who are about to enter university, discussing their current eating habits and their concerns about managing their diet independently in college.</p>
           </div>
         </div>
 
         <div class="video-card">
-          <iframe src="https://www.youtube.com/embed/ysz5S6PUM-U" title="采访视频 2" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/ysz5S6PUM-U" title="Interview Video 2" allowfullscreen></iframe>
           <div class="card-content">
-            <h3>采访视频 2</h3>
-            <p>讨论课业压力下，大学生如何平衡方便、预算和营养之间的关系。</p >
+            <h3>Supermarket Vlog: The "Healthy" Trap</h3>
+            <p>A trip to the supermarket to document and expose pseudo-healthy foods—products marketed as "healthy" but actually packed with hidden sugars and highly processed ingredients.</p>
           </div>
         </div>
       </div>
@@ -328,69 +399,153 @@
 
     <section id="articles">
       <div class="section-title">
-        <h2>我的稿子</h2>
-        <p>这里可以展示你写的文章、采访总结或专题分析。风格保持简洁，方便阅读。</p >
+        <h2>My Articles</h2>
+        <p>Documenting my observations, reflections, and practical advice on promoting healthy eating on campus.</p>
       </div>
 
       <div class="article-list">
         <article class="article-card">
-          <span class="tag">文章 01</span>
-          <h3>为什么大学生容易忽视健康饮食？</h3>
-          <p>
-            很多大学生的作息并不规律，常常因为赶作业、上课或社交而错过正常吃饭时间。
-            在这样的生活节奏下，方便和便宜往往比营养更重要，这也是健康饮食难以坚持的重要原因。
-          </p >
-          <p>
-            但健康饮食并不一定意味着复杂或者昂贵。对大学生来说，最现实的方法是从简单的小改变开始，
-            比如保证每天至少一顿相对均衡的正餐，减少高糖饮料，或者在宿舍准备一些更健康的零食。
-          </p >
+          <span class="tag">Article 01</span>
+          <h3>Why do college students often neglect healthy eating?</h3>
+          <p class="preview-text">Many students have irregular schedules, frequently missing regular meal times due to assignments, classes, or socializing. In such a fast-paced environment...</p>
+          <button class="btn btn-secondary" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openArticle(this)">Read Full Article</button>
+          
+          <div class="full-content" style="display: none;">
+            <p>Many students have irregular schedules, frequently missing regular meal times due to assignments, classes, or socializing. In such a fast-paced environment, convenience and cost often take precedence over nutrition, which is a major reason why healthy eating is hard to sustain.</p>
+            <p>When it's 11 PM and you are stressed in the library, a quick slice of pizza or a bag of chips feels like the only viable option. We often fall into the trap of thinking that eating healthy requires hours of meal prep and an expensive grocery budget.</p>
+            <p>However, healthy eating doesn't have to be complicated or expensive. For college students, the most realistic approach is to start with small changes—such as ensuring at least one balanced meal a day, reducing sugary drinks, or keeping healthier snacks in the dorm. It is about building a sustainable system, not punishing yourself with strict diets.</p>
+          </div>
         </article>
 
         <article class="article-card">
-          <span class="tag">文章 02</span>
-          <h3>采访后的观察：健康饮食不只是“吃得清淡”</h3>
-          <p>
-            在采访中，我发现很多学生对“健康饮食”的理解都不一样。有人觉得少油少盐就是健康，
-            有人则更在意是否能吃饱、是否有足够蛋白质，还有人最关心的是预算是否能承担。
-          </p >
-          <p>
-            这些不同的回答说明，大学生健康饮食其实和时间、经济状况、生活习惯都密切相关。
-            所以讨论这个主题时，不应该只讲理论上的“标准答案”，也要考虑学生真实的生活环境。
-          </p >
+          <span class="tag">Article 02</span>
+          <h3>Post-interview Observations: It's not just about "eating light"</h3>
+          <p class="preview-text">During the interviews, I found that students have varying definitions of "healthy eating." Some believe less oil and salt is the standard; some care more about feeling full...</p>
+          <button class="btn btn-secondary" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openArticle(this)">Read Full Article</button>
+          
+          <div class="full-content" style="display: none;">
+            <p>During the interviews, I found that students have varying definitions of "healthy eating." Some believe less oil and salt is the standard; some care more about feeling full and getting enough protein, while others are primarily concerned about whether it fits their tight budget.</p>
+            <p>One striking observation was that many students feel a sense of guilt when they can't afford trendy "superfoods" like avocados or organic quinoa, leading them to abandon the idea of healthy eating altogether.</p>
+            <p>These diverse responses show that healthy eating for students is deeply intertwined with time, financial status, and lifestyle. Therefore, when discussing this topic, we shouldn't just offer theoretical "standard answers," but also consider the students' real living environments. Real nutrition must be accessible and affordable.</p>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">Article 03</span>
+          <h3>How does our environment shape our food choices?</h3>
+          <p class="preview-text">Often, we eat snacks not because we are truly hungry, but because they are too easily accessible. If you leave a bag of chips on your desk, you will likely eat it mindlessly...</p>
+          <button class="btn btn-secondary" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openArticle(this)">Read Full Article</button>
+          
+          <div class="full-content" style="display: none;">
+            <p>Often, we eat snacks not because we are truly hungry, but because they are too easily accessible. If you leave a bag of chips on your desk, you will likely eat it mindlessly while studying.</p>
+            <p>Behavioral economics calls this the "nudge" theory. Humans are biologically wired to seek high-calorie foods with the least amount of effort. If junk food is in your immediate line of sight, your willpower will eventually lose the battle.</p>
+            <p>By adjusting our physical environment—such as placing fresh fruit on the desk and hiding ultra-processed foods deep in a zipped bag under the bed—we can use this slight "friction" to significantly help us build better habits effortlessly. You don't need more discipline; you just need a better environment.</p>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">Article 04</span>
+          <h3>A Win-Win Strategy for Health and the Environment</h3>
+          <p class="preview-text">When we choose natural plant-based ingredients, we not only provide sustained energy for our brains but also drastically reduce plastic packaging waste and carbon emissions...</p>
+          <button class="btn btn-secondary" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openArticle(this)">Read Full Article</button>
+          
+          <div class="full-content" style="display: none;">
+            <p>When we choose natural plant-based ingredients (like oats, beans, lentils, and fresh produce), we not only provide sustained energy for our brains but also drastically reduce plastic packaging waste and carbon emissions.</p>
+            <p>Look at the typical €5 supermarket "meal deal": a highly processed sandwich wrapped in thick plastic, a plastic bottle of soda, and a bag of crisps. The environmental cost of this convenience is massive.</p>
+            <p>Buying one less over-packaged fast-food item is actually a smart choice that is responsible for both our bodies and the Earth. The food that is best for your brain focus happens to be the exact same food that is best for the planet.</p>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <span class="tag">Article 05</span>
+          <h3>The "Smart Swap" Rule for University Students</h3>
+          <p class="preview-text">To eat healthier, you don't need to quit all your favorite snacks like a monk. Learning to make "Smart Swaps" is the key to long-term success...</p>
+          <button class="btn btn-secondary" style="padding: 6px 16px; font-size: 0.85rem;" onclick="openArticle(this)">Read Full Article</button>
+          
+          <div class="full-content" style="display: none;">
+            <p>To eat healthier, you don't need to quit all your favorite snacks like a monk. Learning to make "Smart Swaps" is the key to long-term success.</p>
+            <p>Many diets fail because they rely on deprivation. Instead of saying "I can never eat sugar again," ask yourself, "What is a slightly better alternative?"</p>
+            <p>For example, replace an expensive €3 high-sugar energy drink with warm lemon water, or swap late-night crisps for a crunchy apple with peanut butter. You still get the crunch and the energy, but these tiny adjustments are cheaper, fresher, and highly effective at preventing the dreaded 3 PM energy crash.</p>
+          </div>
         </article>
       </div>
     </section>
 
     <section id="about">
       <div class="section-title">
-        <h2>关于这个主题</h2>
-        <p>这个网站适合用来展示课程项目、采访作业或者个人主题研究成果。</p >
+        <h2>About This Project</h2>
+        <p>This website is a digital platform I built to promote and advocate for healthy eating among university students.</p>
       </div>
 
       <div class="about">
         <div class="about-box">
-          <h3>你可以继续添加的内容</h3>
-          <p>你后面可以继续加入：</p >
-          <p>• 更多采访视频</p >
-          <p>• 每篇文章的完整页面</p >
-          <p>• 联系方式或反馈表单</p >
-          <p>• 图片、数据图表或参考资料</p >
+          <h3>Project Intent</h3>
+          <p>In the fast-paced college life, many students often resort to convenient but unhealthy ultra-processed foods due to academic stress and budget constraints. The original intent of this project is to break the myth that "healthy eating is expensive and troublesome", helping everyone take care of their brains and bodies in the simplest ways.</p>
         </div>
 
         <div class="about-box">
-          <h3>如何替换成你自己的内容</h3>
-          <p>
-            视频部分：把 iframe 里的 YouTube 链接替换成你自己的视频链接。<br><br>
-            文章部分：直接修改标题和段落文字，换成你自己写的稿子。<br><br>
-            网站标题：把 “Healthy Campus Plate” 改成你想要的网站名字。
-          </p >
+          <h3>Core Vision</h3>
+          <p>I hope to provide a stress-free space by sharing practical dietary advice, real interview stories, and easy-to-follow concepts. Change doesn't happen overnight; by starting with drinking an extra glass of water a day or making one smart snack swap, we can all build our own sustainable and healthy lifestyles.</p>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 大学生健康饮食网站 | Designed in a simple style</p >
+    <p>© 2026 Healthy Campus Plate | Designed for a healthier student life</p>
   </footer>
+
+  <div class="modal-overlay" id="articleModal" onclick="closeOutside(event)">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeArticleModal()">&times;</button>
+      <span class="tag" id="modalTag" style="margin-bottom: 15px;"></span>
+      <h2 class="modal-title" id="modalTitle">Title</h2>
+      <div class="modal-body" id="modalBody">
+        </div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('articleModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTag = document.getElementById('modalTag');
+    const modalBody = document.getElementById('modalBody');
+
+    // 打开文章弹窗
+    function openArticle(btn) {
+      const card = btn.closest('.article-card');
+      const title = card.querySelector('h3').innerText;
+      const tag = card.querySelector('.tag').innerText;
+      const fullContentHTML = card.querySelector('.full-content').innerHTML;
+
+      // 将内容填充到弹窗中
+      modalTitle.innerText = title;
+      modalTag.innerText = tag;
+      modalBody.innerHTML = fullContentHTML;
+
+      // 显示弹窗
+      modal.style.display = 'flex';
+      // 用一点点延迟来触发淡入动画
+      setTimeout(() => {
+        modal.classList.add('active');
+      }, 10);
+    }
+
+    // 关闭弹窗
+    function closeArticleModal() {
+      modal.classList.remove('active');
+      // 等待淡出动画结束再隐藏
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    }
+
+    // 点击弹窗外部阴影区域时关闭弹窗
+    function closeOutside(event) {
+      if (event.target === modal) {
+        closeArticleModal();
+      }
+    }
+  </script>
 </body>
 </html>
